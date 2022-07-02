@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#EB5757</color>
+    <color name="orange">#FA6C51</color>
+    <color name="blue">#4FC0E8</color>
+
+    <color name="gray_1">#333333</color>
+    <color name="gray_2">#4F4F4F</color>
+    <color name="gray_3">#828282</color>
+    <color name="gray_4">#BDBDBD</color>
+    <color name="gray_5">#E0E0E0</color>
+    <color name="gray_6">#F2F2F2</color>
+
+    <color name="grape_fruit_1">#F76C82</color>
+    <color name="grape_fruit_2">#EB5463</color>
+    <color name="grape_fruit_3">#D94452</color>
+
+    <color name="bitter_sweet_1">#FB836F</color>
+    <color name="bitter_sweet_2">#FA6C51</color>
+    <color name="bitter_sweet_3">#E8553E</color>
+
+    <color name="sun_flower_1">#FBD277</color>
+    <color name="sun_flower_2">#FDCD56</color>
+    <color name="sun_flower_3">#F5B945</color>
+
+    <color name="grass_1">#B4DF80</color>
+    <color name="grass_2">#9ED26A</color>
+    <color name="grass_3">#89C053</color>
+
+    <color name="mint_1">#61DDBC</color>
+    <color name="mint_2">#46CEAC</color>
+    <color name="mint_3">#35BA9B</color>
+
+    <color name="aqua_1">#66D4F1</color>
+    <color name="aqua_2">#4FC0E8</color>
+    <color name="aqua_3">#3AADD9</color>
+
+    <color name="blue_1">#73B0F4</color>
+    <color name="blue_2">#5E9CEA</color>
+    <color name="blue_3">#4A88DA</color>
+    <color name="blue_4">#F1FAFD</color>
+
+    <color name="lavender_1">#B3A4EE</color>
+    <color name="lavender_2">#AC92EA</color>
+    <color name="lavender_3">#9579DA</color>
+
+    <color name="lavender_pink_1">#F199CE</color>
+    <color name="lavender_pink_2">#EB86BE</color>
+    <color name="lavender_pink_3">#D56FAC</color>
+
+    <color name="skin_tone_1">#F4D0B5</color>
+    <color name="skin_tone_2">#EFC7A4</color>
+    <color name="skin_tone_3">#E3B692</color>
+</resources>

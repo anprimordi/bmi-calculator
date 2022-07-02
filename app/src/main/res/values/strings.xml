@@ -1,0 +1,18 @@
+<resources>
+    <string name="action_close">Close</string>
+    <string name="action_retry">Try again</string>
+    <string name="action_yes">Yes</string>
+    <string name="action_no">No</string>
+    <string name="msg_error_invalid_data">Kolom %s tidak valid. Column %s is not valid</string>
+    <string name="msg_error_general_network">No internet connection, please try again later.</string>
+    <string name="msg_error_general_not_found">Sorry, data is not found.</string>
+    <string name="msg_error_general_auth">Please login to access this page</string>
+    <string name="msg_error_general_unknown">An unknown error occurred.</string>
+    <string name="msg_under_development">Sorry, this feature is under development.</string>
+    <string name="text_version">Version %s</string>
+    <string name="action_skip">Skip</string>
+    <string name="action_choose_date">Choose Date</string>
+    <string name="plain_home">Home</string>
+    <string name="plain_history">History</string>
+    <string name="plain_profile">Profile</string>
+</resources>

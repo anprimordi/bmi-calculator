@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorBackground" format="reference|color" />
+    <attr name="colorOnPrimary" format="reference|color" />
+    <attr name="colorDividerSmall" format="reference|color" />
+    <attr name="colorFormBackground" format="reference|color" />
+    <attr name="colorHint" format="reference|color" />
+    <attr name="colorIndicator" format="reference|color" />
+    <attr name="colorPrimary" format="reference|color" />
+    <attr name="colorSecondary" format="reference|color" />
+    <attr name="colorTextPrimary" format="reference|color" />
+    <attr name="colorTextSecondary" format="reference|color" />
+
+    <attr name="textAppearanceHeadline1" format="reference" />
+    <attr name="textAppearanceHeadline2" format="reference" />
+    <attr name="textAppearanceHeadline3" format="reference" />
+    <attr name="textAppearanceHeadline4" format="reference" />
+    <attr name="textAppearanceHeadline5" format="reference" />
+    <attr name="textAppearanceHeadline6" format="reference" />
+    <attr name="textAppearanceSubtitle1" format="reference" />
+    <attr name="textAppearanceSubtitle2" format="reference" />
+    <attr name="textAppearanceSubtitle3" format="reference" />
+    <attr name="textAppearanceSubtitle4" format="reference" />
+    <attr name="textAppearanceBody1" format="reference" />
+    <attr name="textAppearanceBody2" format="reference" />
+    <attr name="textAppearanceBody3" format="reference" />
+    <attr name="textAppearanceBody4" format="reference" />
+    <attr name="textAppearanceBody5" format="reference" />
+    <attr name="textAppearanceBody6" format="reference" />
+    <attr name="textAppearanceCaption1" format="reference" />
+    <attr name="textAppearanceCaption2" format="reference" />
+    <attr name="textAppearanceCaption3" format="reference" />
+    <attr name="textAppearanceCaption4" format="reference" />
+    <attr name="textAppearanceOverline1" format="reference" />
+    <attr name="textAppearanceOverline2" format="reference" />
+    <attr name="textAppearanceOverline3" format="reference" />
+</resources>
