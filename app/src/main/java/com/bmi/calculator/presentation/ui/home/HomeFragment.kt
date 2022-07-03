@@ -16,7 +16,6 @@ import com.bmi.calculator.presentation.util.extensions.showSnackbar
 import com.bmi.calculator.presentation.util.extensions.showTitleWithMessageDialog
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeContract.ViewModel>(),
@@ -54,25 +53,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeContract.ViewModel>()
         viewModel.bmiObservable.observe(viewLifecycleOwner) {
             when (it.first) {
                 is Loading -> {}
-                is Error -> {
-                    showSnackbar(binding.root, it.first.message)
-                }
-                is Success -> {
-                    showBmiDialog(it.first.data!!, it.second.data!!)
-                }
+                is Error -> showSnackbar(binding.root, it.first.message)
+                is Success -> showBmiDialog(it.first.data!!, it.second.data!!)
             }
         }
 
         viewModel.nthSmallestResultObservable.observe(viewLifecycleOwner) {
             when (it) {
                 is Loading -> {}
-                is Error -> {
-                    Timber.e(it.message)
-                    showSnackbar(binding.root, it.message)
-                }
-                is Success -> {
-                    showNthSmallestResultDialog(it.data)
-                }
+                is Error -> showSnackbar(binding.root, it.message)
+                is Success -> showNthSmallestResultDialog(it.data)
             }
         }
     }
@@ -94,7 +84,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeContract.ViewModel>()
             if (bmi.bodyType.isNotEmpty() && bmi.bodyType.isNotBlank()) bmi.bodyType else weightCategory.weightCategory
 
         showTitleWithMessageDialog(
-            title = "Body Mass Index",
+            title = getString(R.string.plain_body_mass_index),
             message = "BMI: $bmiCount \nBody Type: $bodyType \nWeight: $weight \nHeight: $height "
         )
     }

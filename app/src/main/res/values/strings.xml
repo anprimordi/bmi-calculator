@@ -33,4 +33,5 @@
     <string name="title_calculate_bmi">Calculate Body Mass Index</string>
     <string name="title_return_nth_code">Get the code here</string>
     <string name="plain_return_nth_code">https://pl.kotl.in/hJb647j70</string>
+    <string name="plain_body_mass_index">Body Mass Index</string>
 </resources>

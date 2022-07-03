@@ -20,13 +20,7 @@ class BmiRepository @Inject constructor(
         weight: String,
         height: String
     ): Result<Bmi> {
-        val remoteResult = remoteDataSource.countBmi(scaleType, weight, height)
-
-        if (remoteResult is Error) {
-            return localDataSource.countBmi(scaleType, weight, height)
-        } else {
-            return remoteResult
-        }
+        return remoteDataSource.countBmi(scaleType, weight, height)
     }
 
     override suspend fun getWeightCategory(bmi: Double): Result<WeightCategory> {
