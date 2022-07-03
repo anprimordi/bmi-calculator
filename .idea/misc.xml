@@ -6,14 +6,17 @@
         <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/drawable/bg_splash_screen_test.xml" value="0.1825" />
         <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/drawable/gradient_button.xml" value="0.1825" />
         <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/drawable/gradient_card_event.xml" value="0.1825" />
+        <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/drawable/ic_app_logo_colored.xml" value="0.1825" />
         <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/drawable/placeholder_image.xml" value="0.1825" />
         <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/drawable/shape_rounded_rect_30.xml" value="0.1825" />
         <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/drawable/shape_rounded_rect_8.xml" value="0.1825" />
         <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/drawable/shape_rounded_top_24.xml" value="0.1825" />
         <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/layout/activity_main.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/layout/fragment_history.xml" value="0.27291666666666664" />
-        <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/layout/fragment_home.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/layout/fragment_on_boarding.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/layout/fragment_splash.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/layout/item_list.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Primordi/AndroidStudioProjects/bmi-calculator/app/src/main/res/menu/bottom_nav.xml" value="0.27291666666666664" />
       </map>
     </option>

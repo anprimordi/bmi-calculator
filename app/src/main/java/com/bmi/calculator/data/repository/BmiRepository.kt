@@ -3,11 +3,11 @@ package com.bmi.calculator.data.repository
 import com.bmi.calculator.domain.datasource.BmiDataSource
 import com.bmi.calculator.domain.model.Bmi
 import com.bmi.calculator.domain.model.ScaleType
+import com.bmi.calculator.domain.model.WeightCategory
+import com.bmi.calculator.domain.model.common.NetworkError
 import com.bmi.calculator.domain.model.common.Result
-import com.bmi.calculator.domain.model.common.Success
 import com.krakatio.aplikasiconvertpulsa.di.datasource.LocalDataSource
 import com.krakatio.aplikasiconvertpulsa.di.datasource.RemoteDataSource
-import java.util.*
 import javax.inject.Inject
 
 class BmiRepository @Inject constructor(
@@ -19,16 +19,17 @@ class BmiRepository @Inject constructor(
         weight: String,
         height: String
     ): Result<Bmi> {
-        val bmi = Bmi(
-            id = 0,
-            bmi = 20.2,
-            weight = 70.0,
-            height = 1.83,
-            bodyType = "Normal",
-            timestamp = Date().time
-        )
-        return Success(bmi)
-//        return remoteDataSource.countBmi(scaleType, weight, height)
+        val remoteResult = remoteDataSource.countBmi(scaleType, weight, height)
+
+        if (remoteResult is NetworkError) {
+            return localDataSource.countBmi(scaleType, weight, height)
+        } else {
+            return remoteResult
+        }
+    }
+
+    override suspend fun getWeightCategory(bmi: Double): Result<WeightCategory> {
+        return remoteDataSource.getWeightCategory(bmi)
     }
 
     override suspend fun getBmiList(): Result<List<Bmi>> {

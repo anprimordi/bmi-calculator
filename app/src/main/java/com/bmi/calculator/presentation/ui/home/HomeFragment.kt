@@ -1,32 +1,131 @@
 package com.bmi.calculator.presentation.ui.home
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.fragment.app.viewModels
 import com.bmi.calculator.R
+import com.bmi.calculator.databinding.FragmentHomeBinding
+import com.bmi.calculator.domain.model.Bmi
+import com.bmi.calculator.domain.model.ScaleType
+import com.bmi.calculator.domain.model.WeightCategory
+import com.bmi.calculator.domain.model.common.Error
+import com.bmi.calculator.domain.model.common.Loading
+import com.bmi.calculator.domain.model.common.Success
+import com.bmi.calculator.presentation.util.base.BaseFragment
+import com.bmi.calculator.presentation.util.extensions.showMessageDialog
+import com.bmi.calculator.presentation.util.extensions.showSnackbar
+import com.bmi.calculator.presentation.util.extensions.showTitleWithMessageDialog
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
-class HomeFragment : Fragment() {
+@AndroidEntryPoint
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeContract.ViewModel>(),
+    HomeContract.View {
 
-    companion object {
-        fun newInstance() = HomeFragment()
+    override val layoutResourceId: Int = R.layout.fragment_home
+    override val viewModel: HomeContract.ViewModel by viewModels<HomeViewModel>()
+
+    override fun onInitialize() {
+        binding.view = this
+        binding.viewModel = viewModel
+
+        viewModel.loadData()
+
+        val list = ScaleType.values().map { it.name }
+        binding.editUnit.setDropdownMenu(list)
+
+        viewModel.scaleObservable.observe(viewLifecycleOwner) {
+            when (it) {
+                ScaleType.METRIC.name -> {
+                    binding.fieldWeight.suffixText = "kg"
+                    binding.fieldHeight.suffixText = "m"
+                }
+                ScaleType.IMPERIAL.name -> {
+                    binding.fieldWeight.suffixText = "lb"
+                    binding.fieldHeight.suffixText = "in"
+                }
+                else -> {
+                    binding.fieldWeight.suffixText = ""
+                    binding.fieldHeight.suffixText = ""
+                }
+            }
+        }
+
+        viewModel.bmiObservable.observe(viewLifecycleOwner) {
+            when (it.second) {
+                is Loading -> {}
+                is Error -> {
+                    showSnackbar(binding.root, it.second.message)
+                }
+                is Success -> {
+                    showBmiDialog(it.first.data!!, it.second.data!!)
+                }
+            }
+        }
+
+        viewModel.weightObservable.observe(viewLifecycleOwner) {
+            Timber.e(it)
+        }
+
+        viewModel.heightObservable.observe(viewLifecycleOwner) {
+            Timber.e(it)
+        }
+
+        viewModel.nthSmallestResultObservable.observe(viewLifecycleOwner) {
+            when (it) {
+                is Loading -> {}
+                is Error -> {
+                    Timber.e(it.message)
+                    showSnackbar(binding.root, it.message)
+                }
+                is Success -> {
+                    showNthSmallestResultDialog(it.data)
+                }
+            }
+        }
     }
 
-    private lateinit var viewModel: HomeViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    override fun triggerCalculateBmi() {
+        viewModel.triggerCalculateBmi()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun triggerReturnNthSmallestNumber() {
+        viewModel.triggerReturnNthSmallestResult()
     }
 
+    override fun showBmiDialog(bmi: Bmi, weightCategory: WeightCategory) {
+
+        val bmiCount = bmi.bmi.toString()
+        val weight = bmi.weight.toString()
+        val height = bmi.height.toString()
+        val bodyType = weightCategory.weightCategory
+
+        showTitleWithMessageDialog(
+            title = "Body Mass Index",
+            message = "BMI: $bmiCount \nBody Type: $bodyType \nWeight: $weight \nHeight: $height "
+        )
+    }
+
+    override fun showNthSmallestResultDialog(result: String) {
+        showMessageDialog(result)
+    }
+
+    override fun showBmiIntroDialog() {
+        val title = getString(R.string.title_bmi_intro)
+        val message = getString(R.string.plain_bmi_intro)
+
+        showTitleWithMessageDialog(title, message)
+    }
+
+    override fun showNthSmallestResultCodeDialog() {
+        val title = "Get code here"
+        val message = getString(R.string.plain_return_nth_code)
+        showTitleWithMessageDialog(title, message)
+    }
+
+    private fun MaterialAutoCompleteTextView.setDropdownMenu(list: List<String>) {
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_list, list)
+        this.setAdapter(adapter)
+        this.threshold = 1000
+    }
 }

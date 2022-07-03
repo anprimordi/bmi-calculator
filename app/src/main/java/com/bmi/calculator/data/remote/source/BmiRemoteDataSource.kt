@@ -5,7 +5,11 @@ import com.bmi.calculator.data.remote.util.execute
 import com.bmi.calculator.domain.datasource.BmiDataSource
 import com.bmi.calculator.domain.model.Bmi
 import com.bmi.calculator.domain.model.ScaleType
-import com.bmi.calculator.domain.model.common.*
+import com.bmi.calculator.domain.model.WeightCategory
+import com.bmi.calculator.domain.model.common.Error
+import com.bmi.calculator.domain.model.common.Result
+import com.bmi.calculator.domain.model.common.Success
+import com.bmi.calculator.domain.model.common.UnsupportedError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -28,6 +32,17 @@ class BmiRemoteDataSource @Inject constructor(
                 } else {
                     bmiService.countBmiImperial(weights, heights)
                 }
+            } mapTo {
+                if (it != null) Success(it.toDomain())
+                else Error.general()
+            }
+        }
+    }
+
+    override suspend fun getWeightCategory(bmi: Double): Result<WeightCategory> {
+        return withContext(Dispatchers.IO) {
+            execute {
+                bmiService.getWeightCategory(bmi)
             } mapTo {
                 if (it != null) Success(it.toDomain())
                 else Error.general()

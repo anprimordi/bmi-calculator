@@ -8,6 +8,7 @@
         <item name="colorSecondaryVariant">@color/bitter_sweet_2</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
 
         <item name="materialButtonStyle">@style/Widget.BMICalculator.Button</item>
         <item name="snackbarStyle">@style/Widget.BMICalculator.Snackbar</item>
@@ -70,6 +71,7 @@
         <item name="colorSecondaryVariant">@color/bitter_sweet_2</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
 
         <item name="materialButtonStyle">@style/Widget.BMICalculator.Button</item>
         <item name="snackbarStyle">@style/Widget.BMICalculator.Snackbar</item>

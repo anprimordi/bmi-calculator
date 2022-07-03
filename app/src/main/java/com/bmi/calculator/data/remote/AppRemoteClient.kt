@@ -69,16 +69,17 @@ class AppRemoteClient @Inject constructor(
         val builder = OkHttpClient.Builder()
             .addInterceptor(logger)
             .addInterceptor(chucker)
+            .addInterceptor(Authorization(key = API_KEY, host = API_HOST))
 
-        val userJson = preference.get().getString(AppPreference.KEY_USER, null)
+/*        val userJson = preference.get().getString(AppPreference.KEY_USER, null)
         if (userJson != null) {
             try {
-//                val user = gson.fromJson(userJson, User::class.java) ?: throw NullPointerException()
+                val user = gson.fromJson(userJson, User::class.java) ?: throw NullPointerException()
                 builder.addInterceptor(Authorization(key = API_KEY, host = API_HOST))
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
-        }
+        }*/
 
         return builder.build()
     }

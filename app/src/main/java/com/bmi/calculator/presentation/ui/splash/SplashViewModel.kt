@@ -10,6 +10,7 @@ import com.bmi.calculator.presentation.util.Event
 import com.bmi.calculator.presentation.util.base.BaseViewModel
 import com.krakatio.aplikasiconvertpulsa.di.datasource.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,31 +18,11 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(
     @Repository private val userDataSource: UserDataSource
 ) : BaseViewModel(), SplashContract.ViewModel {
-
-    private val _hasSignedInObservable = MutableLiveData<Event<Result<Boolean?>>>()
-    override val hasSignedInObservable: LiveData<Event<Result<Boolean?>>>
-        get() = _hasSignedInObservable
-
-    private val _checkScaleType = MutableLiveData<Event<Result<ScaleType>>>()
-    override val checkScaleType: LiveData<Event<Result<ScaleType>>>
-        get() = _checkScaleType
-
-    override fun checkLoggedIn() {
+    override fun loadData() {
         viewModelScope.launch {
-            val result = userDataSource.checkHasSignedIn()
-            _hasSignedInObservable.postValue(Event(result))
+            delay(1000)
         }
     }
 
-    override fun fetchScaleType() {
-        viewModelScope.launch {
-            val result = userDataSource.checkScaleType()
-            _checkScaleType.postValue(Event(result))
-
-            if (result.data != null) {
-                userDataSource.saveScaleType(result.data ?: ScaleType.METRIC)
-            }
-        }
-    }
 
 }

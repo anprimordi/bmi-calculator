@@ -7,9 +7,11 @@ import com.bmi.calculator.data.remote.util.RemoteDateTimeUtils
 import com.bmi.calculator.domain.datasource.BmiDataSource
 import com.bmi.calculator.domain.model.Bmi
 import com.bmi.calculator.domain.model.ScaleType
+import com.bmi.calculator.domain.model.WeightCategory
 import com.bmi.calculator.domain.model.common.Error
 import com.bmi.calculator.domain.model.common.Result
 import com.bmi.calculator.domain.model.common.Success
+import com.bmi.calculator.domain.model.common.UnsupportedError
 import java.util.*
 import javax.inject.Inject
 
@@ -33,6 +35,10 @@ class BmiLocalDataSource @Inject constructor(
             ex.printStackTrace()
             Error.construct(ex)
         }
+    }
+
+    override suspend fun getWeightCategory(bmi: Double): Result<WeightCategory> {
+        return UnsupportedError(source = this)
     }
 
     override suspend fun getBmiList(): Result<List<Bmi>> {

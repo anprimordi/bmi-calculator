@@ -1,13 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.ui.home.HomeFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <data>
+
+        <variable
+            name="view"
+            type="com.bmi.calculator.presentation.ui.home.HomeContract.View" />
+
+        <variable
+            name="viewModel"
+            type="com.bmi.calculator.presentation.ui.home.HomeContract.ViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:background="@color/white"
+        tools:context=".presentation.ui.home.HomeFragment">
 
-</FrameLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_toolbar"
+            style="@style/Widget.BMICalculator.Toolbar.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_app_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    android:onClick="@{() -> view.closePage()}"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_app_logo_colored"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/Widget.BMICalculator.Toolbar.Title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/image_app_logo"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:drawableEnd="@drawable/ic_round_help_24"
+                    android:drawablePadding="8dp"
+                    android:drawableTint="@color/gray_3"
+                    android:onClick="@{() -> view.showBmiIntroDialog()}"
+                    android:text="@string/title_calculate_bmi"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                <com.google.android.material.card.MaterialCardView
+                    style="?attr/materialCardViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="24dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="24dp"
+                            android:text="@string/title_card_bmi"
+                            android:textAppearance="?attr/textAppearanceBody1" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/field_unit"
+                            style="@style/Widget.BMICalculator.TextInputLayout.OutlinedBox.Choice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:hint="@string/plain_select_unit"
+                            android:textSize="12sp"
+                            app:hintEnabled="true"
+                            app:startIconDrawable="@drawable/ic_outline_balance_24">
+
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@+id/edit_unit"
+                                style="@style/Widget.BMICalculator.AutoCompleteTextView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:text="@={viewModel.scaleObservable}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:text="@string/title_input_number"
+                            android:textAppearance="?attr/textAppearanceBody1" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/field_weight"
+                            style="@style/Widget.BMICalculator.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:hint="@string/hint_weight"
+                            app:startIconDrawable="@drawable/ic_outlined_weight_24">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_weight"
+                                style="@style/Widget.BMICalculator.TextInputEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal"
+                                android:text="@={viewModel.weightObservable}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/field_height"
+                            style="@style/Widget.BMICalculator.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:hint="@string/hint_height"
+                            app:layout_constraintTop_toBottomOf="@id/field_weight"
+                            app:startIconDrawable="@drawable/ic_outlined_height_24">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_height"
+                                style="@style/Widget.BMICalculator.TextInputEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal"
+                                android:text="@={viewModel.heightObservable}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_calculate_bmi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="24dp"
+                            android:onClick="@{() -> view.triggerCalculateBmi()}"
+                            android:text="@string/action_calculate_bmi" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="48dp"
+                    android:drawableEnd="@drawable/ic_round_help_24"
+                    android:drawablePadding="8dp"
+                    android:drawableTint="@color/gray_3"
+                    android:onClick="@{() -> view.showNthSmallestResultCodeDialog()}"
+                    android:text="@string/title_nth_smallest_number"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                <com.google.android.material.card.MaterialCardView
+                    style="?attr/materialCardViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="48dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="24dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:text="@string/plain_nth_smallest_number"
+                            android:textAppearance="?attr/textAppearanceBody1" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/field_nth"
+                            style="@style/Widget.BMICalculator.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:hint="@string/hint_n">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_nth"
+                                style="@style/Widget.BMICalculator.TextInputEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:text="@={viewModel.nthObservable}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_calculate_nth_result"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="24dp"
+                            android:onClick="@{() -> view.triggerReturnNthSmallestNumber()}"
+                            android:text="@string/action_calculate_n" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

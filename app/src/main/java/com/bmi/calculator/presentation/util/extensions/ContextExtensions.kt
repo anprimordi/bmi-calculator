@@ -141,6 +141,14 @@ fun Context.showIndefiniteSnackbar(
     snackbar.show()
 }
 
+fun Context.showTitleWithMessageDialog(title: String, message: String): AlertDialog {
+    return MaterialAlertDialogBuilder(this)
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton(R.string.action_close) { dialog, _ -> dialog.dismiss() }
+        .show()
+}
+
 fun Context.showMessageDialog(message: String): AlertDialog {
     return MaterialAlertDialogBuilder(this)
         .setMessage(message)
@@ -311,6 +319,10 @@ fun Fragment.showIndefiniteSnackbar(
     actionClick: () -> Unit = { }
 ) {
     requireContext().showIndefiniteSnackbar(view, messageRes, actionRes, actionClick)
+}
+
+fun Fragment.showTitleWithMessageDialog(title: String, message: String): AlertDialog {
+    return requireContext().showTitleWithMessageDialog(title, message)
 }
 
 fun Fragment.showMessageDialog(message: String): AlertDialog {

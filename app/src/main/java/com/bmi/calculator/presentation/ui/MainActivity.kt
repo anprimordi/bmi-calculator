@@ -1,6 +1,9 @@
 package com.bmi.calculator.presentation.ui
 
+import android.content.Context
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -21,44 +24,14 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var bottomNavView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_LandingTheme)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
-        bottomNavView = binding.bottomNav
 
         navController = findNavController(R.id.nav_host_main)
-
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.homeFragment,
-                R.id.historyFragment,
-                R.id.profileFragment
-            )
-        )
-
-        val navHostFragment = supportFragmentManager.fragments.first() as? NavHostFragment
-
-        if (navHostFragment != null) {
-            NavigationUI.setupWithNavController(binding.bottomNav, navController)
-        }
-
-        navController.addOnDestinationChangedListener { controller, destination: NavDestination, arguments ->
-            binding.bottomNav.isVisible = destination.id == R.id.homeFragment ||
-                    destination.id == R.id.historyFragment ||
-                    destination.id == R.id.profileFragment
-        }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
-    override fun onNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onNavigateUp()
-    }
 }
