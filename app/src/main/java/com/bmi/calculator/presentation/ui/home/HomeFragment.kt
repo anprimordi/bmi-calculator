@@ -53,30 +53,43 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeContract.ViewModel>()
         viewModel.bmiObservable.observe(viewLifecycleOwner) {
             when (it.first) {
                 is Loading -> {}
-                is Error -> showSnackbar(binding.root, it.first.message)
-                is Success -> showBmiDialog(it.first.data!!, it.second.data!!)
+                is Error -> {
+                    binding.buttonCalculateBmi.isEnabled = true
+                    showSnackbar(binding.root, it.first.message)
+                }
+                is Success -> {
+                    binding.buttonCalculateBmi.isEnabled = true
+                    showBmiDialog(it.first.data!!, it.second.data!!)
+                }
             }
         }
 
         viewModel.nthSmallestResultObservable.observe(viewLifecycleOwner) {
             when (it) {
                 is Loading -> {}
-                is Error -> showSnackbar(binding.root, it.message)
-                is Success -> showNthSmallestResultDialog(it.data)
+                is Error -> {
+                    binding.buttonCalculateNthResult.isEnabled = true
+                    showSnackbar(binding.root, it.message)
+                }
+                is Success -> {
+                    binding.buttonCalculateNthResult.isEnabled = true
+                    showNthSmallestResultDialog(it.data)
+                }
             }
         }
     }
 
     override fun triggerCalculateBmi() {
         viewModel.triggerCalculateBmi()
+        binding.buttonCalculateBmi.isEnabled = false
     }
 
     override fun triggerReturnNthSmallestNumber() {
         viewModel.triggerReturnNthSmallestResult()
+        binding.buttonCalculateNthResult.isEnabled = false
     }
 
     override fun showBmiDialog(bmi: Bmi, weightCategory: WeightCategory) {
-
         val bmiCount = bmi.bmi.toString()
         val weight = bmi.weight.toString()
         val height = bmi.height.toString()
