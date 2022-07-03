@@ -6,6 +6,7 @@ import com.bmi.calculator.data.local.util.ScaleConverter
 import com.bmi.calculator.data.remote.util.RemoteDateTimeUtils
 import com.bmi.calculator.domain.datasource.BmiDataSource
 import com.bmi.calculator.domain.model.Bmi
+import com.bmi.calculator.domain.model.BodyType
 import com.bmi.calculator.domain.model.ScaleType
 import com.bmi.calculator.domain.model.WeightCategory
 import com.bmi.calculator.domain.model.common.Error
@@ -29,8 +30,15 @@ class BmiLocalDataSource @Inject constructor(
             } else {
                 ScaleConverter.countBmiMetric(weights, heights)
             }
+            val bodyType = when {
+                bmi >= 30 -> "Obese"
+                bmi >= 25 -> "Overweight"
+                bmi >= 19 -> "Normal Weight"
+                bmi < 19 -> "Underweight"
+                else -> ""
+            }
 
-            Success(Bmi(id = Random().nextLong(), bmi = bmi, weight = weights, height = heights, bodyType = "", timestamp = RemoteDateTimeUtils.getCurrentDate()))
+            Success(Bmi(id = Random().nextLong(), bmi = bmi, weight = weights, height = heights, bodyType = bodyType, timestamp = RemoteDateTimeUtils.getCurrentDate()))
         } catch (ex: Exception) {
             ex.printStackTrace()
             Error.construct(ex)

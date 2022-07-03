@@ -52,23 +52,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeContract.ViewModel>()
         }
 
         viewModel.bmiObservable.observe(viewLifecycleOwner) {
-            when (it.second) {
+            when (it.first) {
                 is Loading -> {}
                 is Error -> {
-                    showSnackbar(binding.root, it.second.message)
+                    showSnackbar(binding.root, it.first.message)
                 }
                 is Success -> {
                     showBmiDialog(it.first.data!!, it.second.data!!)
                 }
             }
-        }
-
-        viewModel.weightObservable.observe(viewLifecycleOwner) {
-            Timber.e(it)
-        }
-
-        viewModel.heightObservable.observe(viewLifecycleOwner) {
-            Timber.e(it)
         }
 
         viewModel.nthSmallestResultObservable.observe(viewLifecycleOwner) {
@@ -98,7 +90,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeContract.ViewModel>()
         val bmiCount = bmi.bmi.toString()
         val weight = bmi.weight.toString()
         val height = bmi.height.toString()
-        val bodyType = weightCategory.weightCategory
+        val bodyType =
+            if (bmi.bodyType.isNotEmpty() && bmi.bodyType.isNotBlank()) bmi.bodyType else weightCategory.weightCategory
 
         showTitleWithMessageDialog(
             title = "Body Mass Index",
@@ -118,7 +111,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeContract.ViewModel>()
     }
 
     override fun showNthSmallestResultCodeDialog() {
-        val title = "Get code here"
+        val title = getString(R.string.title_return_nth_code)
         val message = getString(R.string.plain_return_nth_code)
         showTitleWithMessageDialog(title, message)
     }

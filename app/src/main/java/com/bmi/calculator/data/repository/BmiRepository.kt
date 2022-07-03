@@ -4,6 +4,7 @@ import com.bmi.calculator.domain.datasource.BmiDataSource
 import com.bmi.calculator.domain.model.Bmi
 import com.bmi.calculator.domain.model.ScaleType
 import com.bmi.calculator.domain.model.WeightCategory
+import com.bmi.calculator.domain.model.common.Error
 import com.bmi.calculator.domain.model.common.NetworkError
 import com.bmi.calculator.domain.model.common.Result
 import com.krakatio.aplikasiconvertpulsa.di.datasource.LocalDataSource
@@ -21,7 +22,7 @@ class BmiRepository @Inject constructor(
     ): Result<Bmi> {
         val remoteResult = remoteDataSource.countBmi(scaleType, weight, height)
 
-        if (remoteResult is NetworkError) {
+        if (remoteResult is Error) {
             return localDataSource.countBmi(scaleType, weight, height)
         } else {
             return remoteResult
